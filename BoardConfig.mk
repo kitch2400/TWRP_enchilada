@@ -53,8 +53,6 @@ TARGET_USES_64_BIT_BINDER := true
 TARGET_SUPPORTS_64_BIT_APPS := true
 TARGET_USES_HARDWARE_QCOM_BOOTCTRL := true
 
-#OTA
-TARGET_OTA_ASSERT_DEVICE := OnePlus6,enchilada
 
 # Kernel
 BOARD_KERNEL_PAGESIZE := 4096
@@ -77,6 +75,7 @@ BOARD_KERNEL_SEPARATED_DTBO := true
 TARGET_KERNEL_ARCH := arm64
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/Image.gz-dtb
+BOARD_RAMDISK_USE_LZ4 := true
 #TARGET_KERNEL_SOURCE := kernel/oneplus/sdm845
 #TARGET_KERNEL_CLANG_COMPILE := true
 #TARGET_KERNEL_CLANG_VERSION := r383902
@@ -118,7 +117,7 @@ PLATFORM_VERSION := 16.1.0
 PLATFORM_VERSION_LAST_STABLE := $(PLATFORM_VERSION)
 PLATFORM_SECURITY_PATCH := 2127-12-31
 VENDOR_SECURITY_PATCH := $(PLATFORM_SECURITY_PATCH)
-TW_USE_FSCRYPT_POLICY := 1
+
 
 # TWRP specific build flags
 TW_THEME := portrait_hdpi
@@ -126,8 +125,9 @@ RECOVERY_SDCARD_ON_DATA := true
 TARGET_RECOVERY_QCOM_RTC_FIX := true
 TW_EXCLUDE_DEFAULT_USB_INIT := true
 TW_EXTRA_LANGUAGES := true
+TW_INCLUDE_FASTBOOTD := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
-TW_DEVICE_VERSION :=BY SIDDK
+TW_DEVICE_VERSION :=Kitch
 TW_MAX_BRIGHTNESS := 1023
 TW_DEFAULT_BRIGHTNESS := 420
 TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel0-backlight/brightness"
@@ -147,22 +147,9 @@ TW_INCLUDE_FUSE_NTFS := true
 TW_OVERRIDE_SYSTEM_PROPS := \
     "ro.bootimage.build.date.utc=ro.build.date.utc;ro.build.date.utc;ro.odm.build.date.utc=ro.build.date.utc;ro.product.build.date.utc=ro.build.date.utc;ro.system.build.date.utc=ro.build.date.utc;ro.system_ext.build.date.utc=ro.build.date.utc;ro.vendor.build.date.utc=ro.build.date.utc;ro.build.product;ro.build.fingerprint=ro.system.build.fingerprint;ro.build.version.incremental;ro.product.name=ro.product.system.name"
 
-# Debug flags
-TWRP_INCLUDE_LOGCAT := true
-TARGET_USES_LOGD := true
-
 TW_QCOM_ATS_OFFSET := 1634734118
 PRODUCT_ENFORCE_VINTF_MANIFEST := true
 
 # Android Verified Boot
 BOARD_AVB_ENABLE := false
 BOARD_BUILD_DISABLED_VBMETAIMAGE := true
-
-#
-# For local builds only
-#
-# TWRP zip installer
-ifneq ($(wildcard bootable/recovery/installer/.),)
-    USE_RECOVERY_INSTALLER := true
-    RECOVERY_INSTALLER_PATH := bootable/recovery/installer
-endif
